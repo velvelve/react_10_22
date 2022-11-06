@@ -1,23 +1,24 @@
 
-import { Form } from './components/Form/Form';
-import { Form as FormClass } from './class-components/Form';
-import { Count as CountClass } from './class-components/Count';
-import { useState } from 'react';
-import { Count } from './components/Count';
-import { Child } from './components/Child';
+//import { Form } from './components/Form/Form';
+//import { Form as FormClass } from './class-components/Form';
+//import { Count as CountClass } from './class-components/Count';
+//import { useState } from 'react';
+//import { Count } from './components/Count';
+//import { Child } from './components/Child';
+import { Message } from './components/Message/Message';
 
 export const App = () => {
-  const [name, setName] = useState('textFromApp');
-  const [count, setCount] = useState(0);
-  const arr = ['Ivanov', 'Petrov', 'Sidorov'];
+  //const [name, setName] = useState('textFromApp');
+  //const [count, setCount] = useState(0);
+  //const arr = ['Ivanov', 'Petrov', 'Sidorov'];
 
-  const handleChange = (ev) => {
-    setName(ev.target.value)
-  }
+  //const handleChange = (ev) => {
+  //  setName(ev.target.value)
+  //}
 
   return (
-    <div className="App" >
-      <h2 style={{ backgroundColor: 'green' }}>Class components</h2>
+    <div >
+      {/*<h2 style={{ backgroundColor: 'green' }}>Class components</h2>
       <Count count={10} />
       <hr />
       <FormClass />
@@ -33,6 +34,8 @@ export const App = () => {
         return <div key={index}>{item}</div>
       })}
       <Form />
+    */}
+      <Message text={"Hello World!"} />
     </div>
   );
 }
