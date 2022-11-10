@@ -1,14 +1,24 @@
 
+import { useState } from 'react'
 import style from './Form.module.css'
 
-export const Form = () => {
-    const count = 1;
-    const name = 'geekbrains';
+export const Form = ({ handleSendText }) => {
+    const [text, setText] = useState("")
+
+    const handleClick = () => {
+        handleSendText((oldList) => {
+            const obj = { text: text, author: "Unknown" };
+            const replacementList = [...oldList, obj];
+            return replacementList
+        })
+    }
+
+    const handleFormInput = (ev) => {
+        setText(ev.target.value)
+    }
     return <form className={style.form}>
-        <p>Count: {count}</p>
-        <p>Name: {name}</p>
-        <input type="text" />
-        <button type="button">click</button>
+        <input type="text" onChange={handleFormInput} />
+        <button type="button" onClick={handleClick}>Send</button>
     </form>
 }
 
