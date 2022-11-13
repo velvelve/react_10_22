@@ -1,24 +1,26 @@
 
 import { useState } from 'react'
 import style from './Form.module.css'
+import { TextField } from '@mui/material'
+import { Button } from './components/Button/Button'
 
-export const Form = ({ handleSendText }) => {
+export const Form = ({ addMessage }) => {
     const [text, setText] = useState("")
 
-    const handleClick = () => {
-        handleSendText((oldList) => {
-            const obj = { text: text, author: "Unknown" };
-            const replacementList = [...oldList, obj];
-            return replacementList
-        })
+    const handleSubmit = (ev) => {
+        ev.preventDefault();
+        addMessage({
+            text: text,
+            author: "Unknown"
+        });
     }
 
     const handleFormInput = (ev) => {
         setText(ev.target.value)
     }
-    return <form className={style.form}>
-        <input type="text" onChange={handleFormInput} />
-        <button type="button" onClick={handleClick}>Send</button>
+    return <form className={style.form} onSubmit={handleSubmit}>
+        <TextField type="text" onChange={handleFormInput} />
+        <Button label="send" disabled={!text} />
     </form>
 }
 
