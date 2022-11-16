@@ -1,6 +1,4 @@
-
 import { useState } from 'react'
-import style from './Form.module.css'
 import { TextField } from '@mui/material'
 import { Button } from './components/Button/Button'
 
@@ -18,9 +16,8 @@ export const Form = ({ addMessage }) => {
     const handleFormInput = (ev) => {
         setText(ev.target.value)
     }
-    return <form className={style.form} onSubmit={handleSubmit}>
+    return <form onSubmit={handleSubmit}>
         <TextField type="text" onChange={handleFormInput} />
         <Button label="send" disabled={!text} />
     </form>
 }
-

@@ -1,7 +1,6 @@
 
 import { Form } from './components/Form/Form';
 import { useEffect, useState } from 'react';
-import { Message } from './components/Message/Message';
 import { MessageList } from './components/MessageList/MessageList';
 
 export const App = () => {
@@ -37,7 +36,6 @@ export const App = () => {
     <div >
       <MessageList messages={messageList} />
       <Form addMessage={addMessage} />
-      <Message text={"Hello World!"} />
     </div>
   );
 }
