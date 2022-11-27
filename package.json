@@ -22,6 +22,9 @@
     "loki:test": "npm run build-storybook && loki test --requireReference --reactUri file:./storybook-static",
     "chromatic": "npx chromatic --project-token=4ee11ac53e05"
   },
+  "jest": {
+    "testEnvironment": "jsdom"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
