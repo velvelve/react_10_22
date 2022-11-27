@@ -1,32 +1,46 @@
 module.exports = {
     env: {
         browser: true,
+        es6: true,
+        jest: true,
         node: true,
-        es6: true
     },
-    extends: ['prettier', 'eslint:recommended', 'plugin:prettier/recommended', 'plugin:react/recommended', 'plugin:react-hooks/recommended', 'plugin:storybook/recommended'],
+    extends: [
+        'prettier',
+        'eslint:recommended',
+        'plugin:prettier/recommended',
+        'plugin:react/recommended',
+        'plugin:react-hooks/recommended',
+        'plugin:storybook/recommended',
+        'plugin:@typescript-eslint/eslint-recommended',
+        'plugin:@typescript-eslint/recommended',
+    ],
+    overrides: [
+        {
+            files: ['webpack.config.js'],
+            rules: {
+                '@typescript-eslint/no-var-requires': ['off'],
+            },
+        },
+    ],
     parserOptions: {
         ecmaFeatures: {
-            jsx: true
+            jsx: true,
         },
         ecmaVersion: 'latest',
-        sourceType: 'module'
+        sourceType: 'module',
     },
     plugins: ['react', 'prettier', 'react-hooks', 'jest'],
     rules: {
-        'prettier/prettier': ['error', {
-            singleQuote: true
-        }],
-        'react/prop-types': 0,
+        'react/react-in-jsx-scope': 'off',
         'linebreak-style': ['error', 'unix'],
+        'prettier/prettier': [
+            'error',
+            { "singleQuote": true, "endOfLine": "auto" }
+        ],
         quotes: ['warn', 'single'],
+        'react/display-name': 'off',
+        'react/prop-types': 0,
         semi: ['warn', 'always'],
-        'react/react-in-jsx-scope': 'off'
     },
-    overrides: [{
-        files: ['webpack.config.js'],
-        rules: {
-            '@typescript-eslint/no-var-requires': ['off']
-        }
-    }]
 };

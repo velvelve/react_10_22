@@ -1,12 +1,13 @@
-
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const BundleAnalyzerPlugin =
+    require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 const isDev = process.env.NODE_ENV === 'development';
 const withReport = process.env.npm_config_withReport;
-
 
 module.exports = {
     devServer: {
@@ -15,30 +16,22 @@ module.exports = {
         },
         compress: true,
         historyApiFallback: true,
-        port: 8080,
+        port: 8000,
     },
-
-    devtool: process.NODE_ENV === 'production'
-        ? 'hidden-source-map'
-        : 'eval-source-map',
-
-    entry: path.resolve(__dirname, './src/index.jsx'),
+    devtool:
+        process.env.NODE_ENV === 'production'
+            ? 'hidden-source-map'
+            : 'eval-source-map',
+    entry: path.resolve(__dirname, './src/index.tsx'),
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, './build')
-    },
-    resolve: {
-        extensions: ['.js', '.jsx']
-    },
-
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
                 exclude: /node_modules/,
-                use: ['babel-loader']
+                test: /\.(t|j)sx?$/,
+                use: ['babel-loader'],
             },
+            // { test: /\.tsx?$/, loader: 'ts-loader' },
             {
                 exclude: /\.module\.s?css$/i,
                 test: /\.s?css$/i,
@@ -53,8 +46,8 @@ module.exports = {
                             },
                         },
                     },
-                    'sass-loader'
-                ]
+                    'sass-loader',
+                ],
             },
             {
                 test: /\.module\.s?css$/,
@@ -69,21 +62,21 @@ module.exports = {
                             },
                         },
                     },
-                    'sass-loader'
-                ]
+                    'sass-loader',
+                ],
             },
             {
                 generator: {
                     filename: 'static/[hash][ext]',
                 },
                 test: /\.(png|svg|jpg|jpeg|gif)$/i,
-                type: 'assets/resource',
+                type: 'asset/resource',
             },
-            //{
-            //  lodader: 'html-loader',
-            //  test: /\.html$/i,
-            //},
-        ]
+            // {
+            //   loader: 'html-loader',
+            //   test: /\.html$/i,
+            // },
+        ],
     },
     optimization: {
         minimizer: ['...', new CssMinimizerPlugin()],
@@ -103,25 +96,26 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, './public/index.html')
+            template: path.resolve(__dirname, './public/index.html'),
         }),
         ...(isDev
             ? [new MiniCssExtractPlugin()]
             : [
                 new MiniCssExtractPlugin({
                     chunkFilename: '[name].[contenthash].css',
-                    filename: '[name],[contenthash].css'
+                    filename: '[name].[contenthash].css',
                 }),
             ]),
         ...(withReport ? new BundleAnalyzerPlugin() : ''),
+        new ForkTsCheckerWebpackPlugin(),
     ],
     resolve: {
         alias: {
-            components: path.resolve(__dirname, 'src/components'),
+            components: path.resolve(__dirname, 'src/components/'),
             src: path.resolve(__dirname, 'src'),
             store: path.resolve(__dirname, 'src/store'),
             svg: path.resolve(__dirname, 'src/assets/svg'),
         },
-        extensions: ['.jsx', '.js'],
+        extensions: ['.jsx', '.js', '.tsx', '.ts'],
     },
 };
