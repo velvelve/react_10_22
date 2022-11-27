@@ -1,10 +1,9 @@
 import { FC } from 'react';
 import { List, ListItem } from '@mui/material';
-import { Messages } from 'src/types'
-
+import { Messages } from 'src/types';
 
 interface MessageListProps {
-  messages: Messages
+  messages: Messages;
 }
 
 export const MessageList: FC<MessageListProps> = ({ messages }) => {

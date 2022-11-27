@@ -1,4 +1,4 @@
 export const AUTHOR = {
-    user: 'User',
-    robot: 'Robot'
-}
+  user: 'User',
+  robot: 'Robot',
+};

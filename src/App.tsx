@@ -1,9 +1,9 @@
 import { Form } from './components/Form/Form';
 import { FC, useEffect, useState } from 'react';
 import { MessageList } from './components/MessageList/MessageList';
-import { Messages } from './types'
-import { Message } from './types'
-import { AUTHOR } from './types'
+import { Messages } from './types';
+import { Message } from './types';
+import { AUTHOR } from './types';
 
 export const App: FC = () => {
   const [messageList, setMessageList] = useState<Messages>([]);
@@ -14,7 +14,10 @@ export const App: FC = () => {
   };
 
   useEffect(() => {
-    if (messageList.length > 0 && messageList[messageList.length - 1].author === AUTHOR.USER) {
+    if (
+      messageList.length > 0 &&
+      messageList[messageList.length - 1].author === AUTHOR.USER
+    ) {
       setTimeout(() => {
         const obj = { text: 'Hello, Human!', author: AUTHOR.BOT };
         const replacementList = [...messageList, obj];

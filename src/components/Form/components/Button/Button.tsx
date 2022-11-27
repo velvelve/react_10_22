@@ -12,7 +12,13 @@ export const Button: FC<ButtonProps> = ({
   disabled = false,
   click = () => null,
 }) => (
-  <Btn disabled={disabled} variant="contained" type="submit" onClick={click} style={{ color: 'red' }}>
+  <Btn
+    disabled={disabled}
+    variant="contained"
+    type="submit"
+    onClick={click}
+    style={{ color: 'red' }}
+  >
     {label}
   </Btn>
 );

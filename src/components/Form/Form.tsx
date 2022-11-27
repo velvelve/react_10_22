@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import { TextField } from '@mui/material';
 import { Button } from './components/Button/Button';
 import { AUTHOR } from 'src/types';
-import { Message } from 'src/types'
+import { Message } from 'src/types';
 
 interface FormProps {
   addMessage: (msg: Message) => void;
