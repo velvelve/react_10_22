@@ -10,7 +10,7 @@ export const MessageList: FC<MessageListProps> = ({ messages }) => {
   return (
     <List>
       {messages.map((message, index) => (
-        <ListItem key={index}>
+        <ListItem key={index} data-testid="li">
           {message.author}: {message.text}
         </ListItem>
       ))}

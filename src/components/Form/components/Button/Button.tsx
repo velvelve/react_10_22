@@ -2,15 +2,16 @@ import { FC } from 'react';
 import { Button as Btn } from '@mui/material';
 
 interface ButtonProps {
-  label: string;
+  children?: React.ReactNode;
   disabled?: boolean;
   click?: () => void;
+  render?: (label: string) => JSX.Element;
 }
 
 export const Button: FC<ButtonProps> = ({
-  label,
   disabled = false,
   click = () => null,
+  render,
 }) => (
   <Btn
     disabled={disabled}
@@ -18,7 +19,8 @@ export const Button: FC<ButtonProps> = ({
     type="submit"
     onClick={click}
     style={{ color: 'red' }}
+    data-testid="button"
   >
-    {label}
+    {render && render('Send')}
   </Btn>
 );

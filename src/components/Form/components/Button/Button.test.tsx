@@ -1,3 +1,4 @@
+/** @jest-environment jsdom */
 import { Button } from './Button';
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -5,45 +6,39 @@ import '@testing-library/jest-dom';
 
 describe('Button', () => {
   it('render component', () => {
-    render(<Button label="test" />);
-  });
-
-  it('render component with text', () => {
-    render(<Button label="test" />);
-
-    expect(screen.getByText(/test/)).toBeInTheDocument();
+    render(<Button />);
   });
 
   it('render multiply components', () => {
     render(
       <>
-        <Button label="test1" />
-        <Button label="test2" />
+        <Button />
+        <Button />
       </>
     );
     expect(screen.queryAllByRole('button').length).toBe(2);
   });
 
   it('button is disabled', () => {
-    render(<Button label="test" disabled />);
+    render(<Button disabled />);
 
-    expect(screen.getByText(/test/)).toBeDisabled();
+    expect(screen.getByRole('button')).toBeDisabled();
   });
 
   it('button click with userEvent', async () => {
     const mockHandler = jest.fn();
-    render(<Button label="test" click={mockHandler} />);
+    render(<Button click={mockHandler} />);
 
-    await userEvent.click(screen.getByText(/test/));
+    await userEvent.click(screen.getByRole('button'));
 
     await waitFor(() => expect(mockHandler).toHaveBeenCalledTimes(1));
   });
 
   it('button async click', async () => {
     const mockHandler = jest.fn();
-    render(<Button label="test" click={() => setTimeout(mockHandler, 1500)} />);
+    render(<Button click={() => setTimeout(mockHandler, 1500)} />);
 
-    await userEvent.click(screen.getByText(/test/));
+    await userEvent.click(screen.getByRole('button'));
 
     await waitFor(() => expect(mockHandler).toHaveBeenCalledTimes(1), {
       timeout: 1600,

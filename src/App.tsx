@@ -1,36 +1,33 @@
-import { Form } from './components/Form/Form';
-import { FC, useEffect, useState } from 'react';
-import { MessageList } from './components/MessageList/MessageList';
-import { Messages } from './types';
-import { Message } from './types';
-import { AUTHOR } from './types';
+import { FC, useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { Main } from './../pages/Main';
+import { Profile } from './../pages/Profile';
+import { ChatList } from './components/ChatList/ChatList';
+import { Chat } from './types';
+
+const defaultChats: Chat[] = [
+  {
+    id: '1',
+    name: 'first',
+  },
+  {
+    id: '2',
+    name: 'second',
+  },
+];
 
 export const App: FC = () => {
-  const [messageList, setMessageList] = useState<Messages>([]);
-
-  const addMessage = (newMessage: Message) => {
-    const replacementList = [...messageList, newMessage];
-    setMessageList(replacementList);
-  };
-
-  useEffect(() => {
-    if (
-      messageList.length > 0 &&
-      messageList[messageList.length - 1].author === AUTHOR.USER
-    ) {
-      setTimeout(() => {
-        const obj = { text: 'Hello, Human!', author: AUTHOR.BOT };
-        const replacementList = [...messageList, obj];
-        setMessageList(replacementList);
-      }, 1500);
-    }
-  }, [messageList]);
+  const [chats, setChats] = useState<Chat[]>(defaultChats);
 
   return (
-    <div>
-      <MessageList messages={messageList} />
-      <Form addMessage={addMessage} />
-    </div>
+    <Routes>
+      <Route path="/" element={<Main />} />
+
+      <Route path="profile" element={<Profile />} />
+      <Route path="chats">
+        <Route index element={<ChatList chats={chats} />} />
+      </Route>
+    </Routes>
   );
 };
 

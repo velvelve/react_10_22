@@ -36,7 +36,9 @@ module.exports = {
         'linebreak-style': ['error', 'unix'],
         'prettier/prettier': [
             'error',
-            { "singleQuote": true, "endOfLine": "auto" }
+            {
+                singleQuote: true,
+            },
         ],
         quotes: ['warn', 'single'],
         'react/display-name': 'off',
