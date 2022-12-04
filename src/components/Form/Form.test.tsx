@@ -3,7 +3,6 @@ import { Form } from './Form';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { MemoryRouter } from 'react-router-dom';
 describe('Form', () => {
   it('render component', () => {
     const addMessage = jest.fn();
@@ -38,9 +37,7 @@ describe('Form', () => {
       }),
       useRouteMatch: () => ({ url: '/chats/21312' }),
     }));
-    render(
-      <Form addMessage={addMessage} />
-    );
+    render(<Form addMessage={addMessage} />);
 
     const input = screen.getByTestId<HTMLInputElement>('input');
     fireEvent.change(input, { target: { value: 'new value' } });

@@ -23,31 +23,25 @@ const defaultMessages: Messages = {
   '2': [{ author: AUTHOR.BOT, text: 'Hello, Human!' }],
 };
 
-
-
 export const App: FC = () => {
   const [chats, setChats] = useState<Chat[]>(defaultChats);
   const [messageList, setMessageList] = useState<Messages>(defaultMessages);
   const onAddChat = (newChat: Chat) => {
     {
-      setChats([
-        ...chats, newChat,
-      ]);
+      setChats([...chats, newChat]);
       setMessageList({
         ...messageList,
         [newChat.id]: [],
       });
     }
-  }
+  };
 
   const onAddMessage = (chatId: string, newMessage: Message) => {
     setMessageList({
       ...messageList,
-      [chatId]: [
-        ...messageList[chatId], newMessage
-      ]
-    })
-  }
+      [chatId]: [...messageList[chatId], newMessage],
+    });
+  };
 
   return (
     <Routes>
@@ -73,7 +67,7 @@ export const App: FC = () => {
         </Route>
         <Route path="*" element={<div>404</div>}></Route>
       </Route>
-    </Routes >
+    </Routes>
   );
 };
 
