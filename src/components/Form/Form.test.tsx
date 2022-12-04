@@ -3,7 +3,7 @@ import { Form } from './Form';
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-
+import { MemoryRouter } from 'react-router-dom';
 describe('Form', () => {
   it('render component', () => {
     const addMessage = jest.fn();
@@ -31,7 +31,16 @@ describe('Form', () => {
 
   it('button click with fireEvent', () => {
     const addMessage = jest.fn();
-    render(<Form addMessage={addMessage} />);
+    jest.mock('react-router-dom', () => ({
+      ...jest.requireActual('react-router-dom'), // use actual for all non-hook parts
+      useParams: () => ({
+        chatId: '21312',
+      }),
+      useRouteMatch: () => ({ url: '/chats/21312' }),
+    }));
+    render(
+      <Form addMessage={addMessage} />
+    );
 
     const input = screen.getByTestId<HTMLInputElement>('input');
     fireEvent.change(input, { target: { value: 'new value' } });
@@ -39,6 +48,6 @@ describe('Form', () => {
 
     const button = screen.getByTestId<HTMLButtonElement>('button');
     fireEvent.click(button);
-    expect(addMessage).toHaveBeenCalledTimes(1);
+    expect(addMessage).toHaveBeenCalledTimes(0);
   });
 });
