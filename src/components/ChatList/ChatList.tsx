@@ -9,9 +9,11 @@ const nanoid = customAlphabet('1234567890', 10);
 interface ChatListProps {
   chats: Chat[];
   onAddChat: (chat: Chat) => void;
+  onDeleteChat: (chatId: string) => void;
 }
 
-export const ChatList: FC<ChatListProps> = ({ chats, onAddChat }) => {
+
+export const ChatList: FC<ChatListProps> = ({ chats, onAddChat, onDeleteChat }) => {
   const [value, setValue] = useState('');
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,11 +31,12 @@ export const ChatList: FC<ChatListProps> = ({ chats, onAddChat }) => {
         {chats.map((chat) => (
           <ListItem key={chat.id}>
             <NavLink
-              to={`/chats/${chat.id}`}
+              to={`/chats/${chat.name}`}
               style={({ isActive }) => ({ color: isActive ? 'green' : 'blue' })}
             >
               {chat.name}
             </NavLink>
+            <button onClick={() => onDeleteChat(chat.name)}>delete</button>
           </ListItem>
         ))}
       </ul>
