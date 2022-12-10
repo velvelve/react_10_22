@@ -1,9 +1,12 @@
 import { FC, useEffect } from 'react';
 import { Navigate, useParams } from 'react-router-dom';
-import { ChatList } from '../components/ChatList';
-import { Form } from '../components/Form';
-import { MessageList } from '../components/MessageList/MessageList';
-import { Chat, Message, Messages, AUTHOR } from '../types';
+import { ChatList } from '../../components/ChatList';
+import { Form } from '../../components/Form';
+import { MessageList } from '../../components/MessageList/MessageList';
+import { Chat, Message, Messages, AUTHOR } from '../../types';
+import style from './ChatPage.module.scss';
+
+import { WithClasses } from '../../HOC/WithClasses';
 
 interface ChatPageProps {
   chats: Chat[];
@@ -19,6 +22,7 @@ export const ChatPage: FC<ChatPageProps> = ({
   onAddMessage,
 }) => {
   const { chatId } = useParams();
+  const MessageListWithClass = WithClasses(MessageList);
 
   useEffect(() => {
     if (
@@ -41,7 +45,11 @@ export const ChatPage: FC<ChatPageProps> = ({
   return (
     <>
       <ChatList chats={chats} onAddChat={onAddChat} />
-      <MessageList messages={chatId ? messages[chatId] : []} />
+      {/*<MessageList messages={chatId ? messages[chatId] : []} />*/}
+      <MessageListWithClass
+        messages={chatId ? messages[chatId] : []}
+        classes={style.border}
+      />
       <Form addMessage={onAddMessage} />
     </>
   );
