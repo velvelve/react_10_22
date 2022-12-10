@@ -1,26 +1,25 @@
 import React, { FC, useContext, useState } from 'react';
 import { TextField } from '@mui/material';
 import { Button } from './components/Button/Button';
-import { Message, AUTHOR } from '../../types';
+import { AUTHOR } from '../../types';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../utils/ThemeContext';
+import { useDispatch } from 'react-redux';
+import { addMessage } from '../../store/messages/actions';
 
-interface FormProps {
-  addMessage: (chatId: string, msg: Message) => void;
-}
-
-export const Form: FC<FormProps> = ({ addMessage }) => {
+export const Form: FC = () => {
   const [text, setText] = useState('');
   const { chatId } = useParams();
   const { theme, toggleTheme } = useContext(ThemeContext);
+  const dispatch = useDispatch();
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (chatId) {
-      addMessage(chatId, {
-        text: text,
+      dispatch(addMessage(chatId, {
         author: AUTHOR.USER,
-      });
+        text,
+      }))
     }
     setText('');
   };
