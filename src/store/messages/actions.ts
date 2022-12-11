@@ -25,7 +25,10 @@ export const addMessage = (
   newMessage: newMessage,
 });
 
-export const deleteMessage = (chatName: string, message: string): DeleteMessage => ({
+export const deleteMessage = (
+  chatName: string,
+  message: string
+): DeleteMessage => ({
   type: DELETE_MESSAGE,
   chatName: chatName,
   message: message,

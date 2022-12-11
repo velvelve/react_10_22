@@ -23,10 +23,11 @@ export const ChatPage: FC = () => {
       messages[chatId][messages[chatId].length - 1].author === AUTHOR.USER
     ) {
       setTimeout(() => {
-        dispatch(addMessage(chatId, {
-          text: 'Hello, Human!',
-          author: AUTHOR.BOT,
-        })
+        dispatch(
+          addMessage(chatId, {
+            text: 'Hello, Human!',
+            author: AUTHOR.BOT,
+          })
         );
       }, 1500);
     }

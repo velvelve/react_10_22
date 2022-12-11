@@ -15,21 +15,24 @@ export const MessageList: FC<MessageListProps> = ({ messages }) => {
 
   const handleDelete = (message: string) => {
     if (chatId) {
-      dispatch(deleteMessage(chatId, message))
+      dispatch(deleteMessage(chatId, message));
     }
-  }
+  };
 
   return (
     <List>
       {messages.map((message, index) => (
-        <div>
-          <ListItem key={index} data-testid="li">
+        <div key={index}>
+          <ListItem data-testid="li">
             {message.author}: {message.text}
           </ListItem>
-          {message.author === AUTHOR.USER && <button onClick={() => handleDelete(message.text)}>Delete message</button>}
+          {message.author === AUTHOR.USER && (
+            <button onClick={() => handleDelete(message.text)}>
+              Delete message
+            </button>
+          )}
         </div>
-      ))
-      }
-    </List >
+      ))}
+    </List>
   );
 };

@@ -21,6 +21,6 @@ export interface AddMessage {
 
 export interface DeleteMessage {
   type: typeof DELETE_MESSAGE;
-  chatName: string,
+  chatName: string;
   message: string;
 }
