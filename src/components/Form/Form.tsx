@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../utils/ThemeContext';
 import { useDispatch } from 'react-redux';
 import { addMessage } from '../../store/messages/actions';
+import { Wrapper } from './styled';
 
 export const Form: FC = () => {
   const [text, setText] = useState('');
@@ -16,10 +17,12 @@ export const Form: FC = () => {
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (chatId) {
-      dispatch(addMessage(chatId, {
-        author: AUTHOR.USER,
-        text,
-      }))
+      dispatch(
+        addMessage(chatId, {
+          author: AUTHOR.USER,
+          text,
+        })
+      );
     }
     setText('');
   };
@@ -29,7 +32,7 @@ export const Form: FC = () => {
   };
 
   return (
-    <>
+    <Wrapper>
       <form onSubmit={handleSubmit}>
         <TextField
           value={text}
@@ -44,6 +47,6 @@ export const Form: FC = () => {
       </form>
       <p>Theme: {theme === 'light' ? <>&#127774;</> : <>&#127769;</>}</p>
       <button onClick={toggleTheme}>Toggle Theme</button>
-    </>
+    </Wrapper>
   );
 };

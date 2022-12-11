@@ -36,18 +36,8 @@ export const App: FC = () => {
               <Route path="profile" element={<Profile />} />
               <Route path="about" element={<AboutWithConnect />} />
               <Route path="chats">
-                <Route
-                  index
-                  element={
-                    <ChatList />
-                  }
-                />
-                <Route
-                  path=":chatId"
-                  element={
-                    <ChatPage />
-                  }
-                />
+                <Route index element={<ChatList />} />
+                <Route path=":chatId" element={<ChatPage />} />
               </Route>
               <Route path="*" element={<div>404</div>}></Route>
             </Route>

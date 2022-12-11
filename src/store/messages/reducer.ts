@@ -34,7 +34,15 @@ export const messagesReducer: Reducer<Messages, MessagesActions> = (
     }
 
     case DELETE_MESSAGE: {
-      return state;
+      const messages = { ...state };
+      const chat = messages[action.chatName];
+      const filtered = chat.filter((mes, index, allMessages) => {
+        return mes.text !== action.message
+      });
+      return {
+        ...state,
+        [action.chatName]: filtered
+      }
     }
 
     default:
