@@ -13,7 +13,6 @@ export const ChatPage: FC = () => {
   const MessageListWithClass = WithClasses(MessageList);
   const messages = useSelector(selectMessages);
 
-
   if (chatId && !messages[chatId]) {
     return <Navigate to="/chats" replace />;
   }

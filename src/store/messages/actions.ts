@@ -35,25 +35,23 @@ export const deleteMessage = (
   message: message,
 });
 
-let timeout: NodeJS.Timeout
+let timeout: NodeJS.Timeout;
 
-export const addMessageWithReply = (
-  chatName: string,
-  newMessage: Message
-) => (dispatch: Dispatch) => {
-  dispatch(addMessage(chatName, newMessage))
-  if (newMessage.author !== AUTHOR.BOT) {
-    if (timeout) {
-      clearTimeout(timeout)
+export const addMessageWithReply =
+  (chatName: string, newMessage: Message) => (dispatch: Dispatch) => {
+    dispatch(addMessage(chatName, newMessage));
+    if (newMessage.author !== AUTHOR.BOT) {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+      timeout = setTimeout(() => {
+        dispatch(
+          addMessage(chatName, {
+            text: 'Hello, Human!',
+            author: AUTHOR.BOT,
+          })
+        );
+      }, 1500);
+      return () => clearTimeout(timeout);
     }
-    timeout = setTimeout(() => {
-      dispatch(
-        addMessage(chatName, {
-          text: 'Hello, Human!',
-          author: AUTHOR.BOT,
-        })
-      );
-    }, 1500);
-    return () => clearTimeout(timeout);
-  }
-}
+  };

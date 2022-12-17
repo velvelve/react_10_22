@@ -14,7 +14,7 @@ export const App: FC = () => {
   };
 
   return (
-    <PersistGate persistor={persistor} >
+    <PersistGate persistor={persistor}>
       <Provider store={store}>
         <ThemeContext.Provider value={{ theme, toggleTheme }}>
           <Suspense fallback={<div>loading...</div>}>
