@@ -3,11 +3,15 @@ import { Main } from '../pages/Main';
 import { ChatList } from './ChatList/ChatList';
 import { ChatPage } from '../pages/ChatPages/ChatPage';
 import { Header } from './Header';
-import { FC } from 'react';
+import { FC, lazy } from 'react';
 import { AboutWithConnect } from '../pages/About';
-import React from 'react';
+import { Article } from '../pages/Articles';
+import { Signin } from '../pages/Signin';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
 
-const Profile = React.lazy(() =>
+
+const Profile = lazy(() =>
   Promise.all([
     import('../pages/Profile').then((module) => ({
       default: module.Profile,
@@ -21,9 +25,11 @@ export const AppRouter: FC = () => {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Main />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile" element={<PrivateRoute component={<Profile />} />} />
         <Route path="about" element={<AboutWithConnect />} />
-        <Route path="chats">
+        <Route path='signin' element={<PublicRoute component={<Signin />} />} />
+        <Route path="articles" element={<Article />} />
+        <Route path="chats" element={<PrivateRoute />}>
           <Route index element={<ChatList />} />
           <Route path=":chatId" element={<ChatPage />} />
         </Route>

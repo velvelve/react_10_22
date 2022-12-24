@@ -1,4 +1,4 @@
-import { messagesReducer } from './messages/reducer';
+import { messagesReducer } from './messages/slice';
 import { profileReducer } from './profile/slice';
 import {
   persistStore,
@@ -16,7 +16,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 const persistConfig = {
   key: 'root',
   storage,
-  blacklist: ['profile'],
+  blacklist: [],
 };
 
 const rootReducer = combineReducers({
