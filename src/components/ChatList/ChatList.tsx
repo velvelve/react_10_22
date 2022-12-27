@@ -1,13 +1,12 @@
 import { ListItem } from '@mui/material';
 import { FC, useState } from 'react';
 import { set, ref, remove } from 'firebase/database';
-import { db } from 'src/services/firebase';
+import { db } from '../../services/firebase';
 import { NavLink } from 'react-router-dom';
 import { nanoid } from 'nanoid';
 
 export const ChatList: FC<any> = ({ chats }) => {
   const [value, setValue] = useState('');
-
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
