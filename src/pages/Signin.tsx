@@ -1,38 +1,59 @@
-import { FC, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../store/profile/slice";
+import { CircularProgress } from '@mui/material';
+import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signIn } from '../services/firebase';
 
 export const Signin: FC = () => {
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const dispatch = useDispatch();
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        setError('')
-        if (login === 'gb' && password === 'gb') {
-            dispatch(auth(true));
-            navigate(-1);
-        } else {
-            setError('Wrong login or password');
-        }
+    setError('');
+    setLoading(true);
+
+    try {
+      await signIn(login, password);
+      navigate('/chats');
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('error');
+      }
+    } finally {
+      setLoading(false);
     }
+  };
 
-    return <>
-        <h2>Sign In</h2>
-        <form onSubmit={handleSubmit}>
-            <p>Login: </p>
-            <input type="text" onChange={e => setLogin(e.target.value)} value={login} />
-            <p> Password</p>
-            <input type="text" onChange={e => setPassword(e.target.value)} value={password} />
-            <br />
-            <button>Sign In</button>
-        </form>
-        {error && <p style={{ color: "red" }}>{error}</p>}
-    </>;
-}
+  return (
+    <>
+      <h2>Sign In</h2>
+      <form onSubmit={handleSubmit}>
+        <p>Login:</p>
+        <input
+          type="email"
+          onChange={(e) => setLogin(e.target.value)}
+          value={login}
+          required
+        />
+        <p>Password:</p>
+        <input
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+          required
+        />
+        <br />
+        <button>Login</button>
+      </form>
+      {loading && <CircularProgress />}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </>
+  );
+};

@@ -31,17 +31,17 @@ const navigate = [
 export const Header: FC = () => {
   const isAuth = useSelector((state: StoreState) => {
     return state.profile.isAuth;
-  })
+  });
   const dispatch = useDispatch();
   const nav = useNavigate();
 
   const handleLogout = () => {
     dispatch(auth(false));
-  }
+  };
 
   const handleLogin = () => {
     nav('/signin');
-  }
+  };
 
   return (
     <>
@@ -64,6 +64,7 @@ export const Header: FC = () => {
       <main>
         {isAuth && <button onClick={handleLogout}>Sign Out</button>}
         {!isAuth && <button onClick={handleLogin}>Sign In</button>}
+        {!isAuth && <button onClick={() => nav('/signup')}>Sign Up</button>}
         <Outlet />
       </main>
     </>

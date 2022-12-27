@@ -9,7 +9,7 @@ import { Article } from '../pages/Articles';
 import { Signin } from '../pages/Signin';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
-
+import { Signup } from '../pages/Signup';
 
 const Profile = lazy(() =>
   Promise.all([
@@ -25,9 +25,13 @@ export const AppRouter: FC = () => {
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Main />} />
-        <Route path="profile" element={<PrivateRoute component={<Profile />} />} />
+        <Route
+          path="profile"
+          element={<PrivateRoute component={<Profile />} />}
+        />
         <Route path="about" element={<AboutWithConnect />} />
-        <Route path='signin' element={<PublicRoute component={<Signin />} />} />
+        <Route path="signin" element={<PublicRoute component={<Signin />} />} />
+        <Route path="signup" element={<PublicRoute component={<Signup />} />} />
         <Route path="articles" element={<Article />} />
         <Route path="chats" element={<PrivateRoute />}>
           <Route index element={<ChatList />} />

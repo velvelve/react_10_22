@@ -25,7 +25,7 @@ export const Form: FC = () => {
           newMessage: {
             author: AUTHOR.USER,
             text,
-          }
+          },
         })
       );
     }
