@@ -19,12 +19,11 @@ export const Article: FC = () => {
 
   const handleFetchData = () => {
     dispatch(fetchArticles());
-  }
+  };
 
   useEffect(() => {
     handleFetchData();
   }, []);
-
 
   return (
     <>
