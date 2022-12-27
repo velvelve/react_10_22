@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { List, ListItem } from '@mui/material';
 import { AUTHOR, Message } from '../../types';
 import { useDispatch } from 'react-redux';
-import { deleteMessage } from '../../store/messages/actions';
+//import { deleteMessage } from '../../store/messages/actions';
 import { useParams } from 'react-router-dom';
 
 interface MessageListProps {
@@ -15,7 +15,7 @@ export const MessageList: FC<MessageListProps> = ({ messages }) => {
 
   const handleDelete = (message: string) => {
     if (chatId) {
-      dispatch(deleteMessage(chatId, message));
+      //dispatch(deleteMessage(chatId, message));
     }
   };
 

@@ -2,7 +2,7 @@ import { ListItem } from '@mui/material';
 import { FC, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addChat, deleteChat } from '../../store/messages/actions';
+import { addChat, deleteChat } from '../../store/messages/slice';
 import { selectChats } from '../../store/messages/selectors';
 
 export const ChatList: FC = () => {

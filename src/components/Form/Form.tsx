@@ -5,25 +5,27 @@ import { AUTHOR } from '../../types';
 import { useParams } from 'react-router-dom';
 import { ThemeContext } from '../../utils/ThemeContext';
 import { useDispatch } from 'react-redux';
-import { addMessageWithReply } from '../../store/messages/actions';
+import { addMessageWithReply } from '../../store/messages/slice';
 import { Wrapper } from './styled';
 import { ThunkDispatch } from 'redux-thunk';
 import { StoreState } from '../../store';
-import { AddMessage } from '../../store/messages/types';
 
 export const Form: FC = () => {
   const [text, setText] = useState('');
   const { chatId } = useParams();
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const dispatch = useDispatch<ThunkDispatch<StoreState, void, AddMessage>>();
+  const dispatch = useDispatch<ThunkDispatch<StoreState, void, any>>();
 
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (chatId) {
       dispatch(
-        addMessageWithReply(chatId, {
-          author: AUTHOR.USER,
-          text,
+        addMessageWithReply({
+          chatName: chatId,
+          newMessage: {
+            author: AUTHOR.USER,
+            text,
+          },
         })
       );
     }
