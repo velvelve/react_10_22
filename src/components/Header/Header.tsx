@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { logOut } from '../../services/firebase';
 import { StoreState } from '../../store';
 import { auth } from '../../store/profile/slice';
 import style from './Header.module.scss';
@@ -35,12 +36,14 @@ export const Header: FC = () => {
   const dispatch = useDispatch();
   const nav = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(auth(false));
-  };
-
-  const handleLogin = () => {
-    nav('/signin');
+  const handleLogout = async () => {
+    try {
+      await logOut();
+    } catch (err) {
+      console.log(err);
+    } finally {
+      dispatch(auth(false));
+    }
   };
 
   return (
@@ -63,7 +66,7 @@ export const Header: FC = () => {
       </header>
       <main>
         {isAuth && <button onClick={handleLogout}>Sign Out</button>}
-        {!isAuth && <button onClick={handleLogin}>Sign In</button>}
+        {!isAuth && <button onClick={() => nav('/signin')}>Sign In</button>}
         {!isAuth && <button onClick={() => nav('/signup')}>Sign Up</button>}
         <Outlet />
       </main>
